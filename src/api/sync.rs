@@ -124,10 +124,15 @@ impl ApiBuilder {
             Err(_) => "https://huggingface.co".to_string(),
         };
 
+        let cache_dir = match std::env::var("HF_HOME") {
+            Ok(v) => Cache::new(PathBuf::from_str(&v).unwrap()),
+            Err(_) => cache,
+        };
+
         Self {
             endpoint,
             url_template: "{endpoint}/{repo_id}/resolve/{revision}/{filename}".to_string(),
-            cache,
+            cache: cache_dir,
             token,
             progress,
         }
