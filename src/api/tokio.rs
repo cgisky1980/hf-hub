@@ -116,7 +116,6 @@ impl ApiBuilder {
             Ok(v) => v,
             Err(_) => "https://huggingface.co".to_string(),
         };
-        
         let cache_dir = match std::env::var("HF_HOME") {
             Ok(v) => Cache::new(PathBuf::from_str(&v).unwrap()),
             Err(_) => cache,
